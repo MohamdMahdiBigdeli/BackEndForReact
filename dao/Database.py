@@ -8,7 +8,7 @@ class counters():
         self.number = number
 
 
-def read_Access(TableName):
+def read_SQL(TableName):
     conn = pyodbc.connect(
         r"DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\B\Desktop\back\OnlineShop.accdb;")
     cursor = conn.cursor()

@@ -8,34 +8,15 @@ class counters():
         self.number = number
 
 
-class sqlbase():
-    def getConnection(self):
-        connection = pyodbc.connect(
-            'DRIVER={ODBC Driver 17 for SQL Server};SERVER=46.34.161.23,13433;DATABASE=Bigdeli;UID=sa;PWD=111@a')
-        cursor = connection.cursor()
-        return connection, cursor
-
-
-def ReadDB():
-        sqlBase = sqlbase()
-        connection, cursor = sqlBase.getConnection()
-        cursor.execute("set nocount on; select * from counters")
-        rows = cursor.fetchall()
-        cursor.close()
-        connection.close()
-        li = []
+def read_SQL(TableName):
+    conn = pyodbc.connect(
+        r"DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\B\Desktop\back\OnlineShop.accdb;")
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM ' + str(TableName))
+    rows = cursor.fetchall()
+    json = []
+    if str(TableName) == '''counters''':
         for row in rows:
             obj = counters(row[0], row[1], row[2])
-            li.append(obj)
-        return li
-# conn = pyodbc.connect(
-#     r"DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\B\Desktop\back\OnlineShop.accdb;")
-# cursor = conn.cursor()
-# cursor.execute('SELECT * FROM ' + str(TableName))
-# rows = cursor.fetchall()
-# json = []
-# if str(TableName) == '''counters''':
-#     for row in rows:
-#         obj = counters(row[0], row[1], row[2])
-#         json.append(obj)
-# return json
+            json.append(obj)
+    return json

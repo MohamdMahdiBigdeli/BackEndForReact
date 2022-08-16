@@ -35,7 +35,6 @@ def TestimonialData(request):
             "designation": "مدیر اجرایی دیجی کالا"
         }
     ]
-
     return HttpResponse(json.dumps(data), content_type='''application/json''')
 
 

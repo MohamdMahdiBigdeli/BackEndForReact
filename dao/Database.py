@@ -1,10 +1,10 @@
 import pyodbc
 from dao.Model import Products
-
+import os
 
 def Connect():
     conn = pyodbc.connect(
-        r"DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\B\Desktop\back\OnlineShop.accdb;")
+        r"DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=" + str(os.getcwd()) + "\OnlineShop.accdb;")
     return conn.cursor()
 
 
